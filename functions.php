@@ -50,7 +50,9 @@ function fwd_setup() {
 	register_nav_menus(
 		array(
 			'header' => esc_html__( 'Header Menu Location', 'fwd' ),
-		)
+			'footer-left' => esc_html__( 'Footer - Left Side', 'fwd' ),
+			'footer-right' => esc_html__( 'Social Media Footer - Right Side', 'fwd' ),
+			)
 	);
 
 	/*
@@ -145,6 +147,17 @@ function fwd_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'fwd' ),
+			'id'            => 'sidebar-2',
+			'description'   => esc_html__( 'Add widgets here.', 'fwd' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
 }
 add_action( 'widgets_init', 'fwd_widgets_init' );
 
@@ -184,3 +197,4 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
