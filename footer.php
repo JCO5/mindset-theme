@@ -13,7 +13,12 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="footer-contact">
-			
+			<?php if(!is_page(6)) { ?>
+				<div>
+					<?php echo esc_html_e(get_field('address', 6)); ?><br>
+					<a href="<?php echo 'mailto:'.esc_url(get_field('email', 6)); ?>">Send Mail</a>
+				</div>
+			<?php }?>	
 		</div><!-- .footer-contact -->
 		<div class="footer-menus">
 			<nav class="footer-navigation">
@@ -24,7 +29,6 @@
 			</nav>
 		</div><!-- .footer-menus -->
 		<div class="site-info">
-
 			 <?php echo the_privacy_policy_link() ?> <br>
 			<?php esc_html_e( 'Created by ', 'fwd' ); ?><a href="<?php echo esc_url( __( 'https://wp.bcitwebdeveloper.ca/', 'fwd' ) ); ?>"><?php esc_html_e( 'Jonathon Leathers', 'fwd' ); ?></a>
 		</div><!-- .site-info -->

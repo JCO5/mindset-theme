@@ -25,13 +25,54 @@ get_header();
 			get_template_part( 'template-parts/content', 'page' );
 			?>
 			<section class="home-intro">
-
+				<?php
+					if ( function_exists( 'get_field' ) ) {
+						if ( get_field( 'top_section' ) ) {
+						the_field( 'top_section' );
+					}
+				}
+				?>
 			</section>
 			<section class="home-work">
 
 			</section>
 			<section class="home-left">
+			<?php
+				if ( function_exists( 'get_field' ) ) {
 
+					if ( get_field( 'left_section_heading' ) ) {
+						echo '<h2>';
+						the_field( 'left_section_heading' );
+						echo '</h2>';
+					}
+
+					if ( get_field( 'left_section_content' ) ) {
+						echo '<p>';
+						the_field( 'left_section_content' );
+						echo '</p>';
+					}
+
+				}
+			?>
+			</section>
+			<section class="home-right">
+			<?php
+				if ( function_exists( 'get_field' ) ) {
+
+					if ( get_field( 'right_section_heading' ) ) {
+						echo '<h2>';
+						the_field( 'right_section_heading' );
+						echo '</h2>';
+					}
+
+					if ( get_field( 'right_section_content' ) ) {
+						echo '<p>';
+						the_field( 'right_section_content' );
+						echo '</p>';
+					}
+
+				}
+			?>
 			</section>
 			<section class="home-slider">
 
