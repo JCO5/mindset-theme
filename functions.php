@@ -45,6 +45,9 @@ function fwd_setup() {
 		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		*/
 	add_theme_support( 'post-thumbnails' );
+	// Portrait Blog Size - 200px width, 250px height, hard crop
+	add_image_size( 'portrait-blog', 200, 250, true );
+	add_image_size( 'featured-image-home', 400, 200, true );
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
@@ -149,7 +152,7 @@ function fwd_widgets_init() {
 	);
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Sidebar', 'fwd' ),
+			'name'          => esc_html__( 'Page Sidebar', 'fwd' ),
 			'id'            => 'sidebar-2',
 			'description'   => esc_html__( 'Add widgets here.', 'fwd' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
