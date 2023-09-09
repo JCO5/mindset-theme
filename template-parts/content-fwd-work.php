@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying page content in page.php
+ * Template part for displaying posts
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -11,7 +11,13 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<?php
+		if ( is_singular() ) :
+			the_title( '<h1 class="entry-title">', '</h1>' );
+		else :
+			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+		endif;
+		?>
 	</header><!-- .entry-header -->
 
 	<?php fwd_post_thumbnail(); ?>
@@ -26,20 +32,6 @@
 				'after'  => '</div>',
 			)
 		);
-
-		if ( function_exists( 'get_field' ) ) {
-			if ( get_field('address') ) {
-				the_field('address');
-			}
-			if ( get_field('email') ) {
-				$email  = get_field( 'email' );
-				$mailto = 'mailto:' . $email;
-				?>
-				<p><a href="<?php echo esc_url( $mailto ); ?> "><?php echo esc_html( $email ); ?></a></p>
-				<?php
-			}
-		}
-		
 		?>
 	</div><!-- .entry-content -->
 

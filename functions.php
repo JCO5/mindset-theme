@@ -195,6 +195,11 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
+ * Register CPTs and Taxonomies.
+ */
+require get_template_directory() . '/inc/cpt-taxonomy.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
@@ -257,33 +262,12 @@ function fwd_block_editor_templates() {
         );
 		$post_type_object->template_lock = 'all';
     }
-}
-add_action( 'init', 'fwd_block_editor_templates' );
-
-// Remove Block Editor and Change to Classic Editor	
-function fwd_post_filter( $use_block_editor, $post ) {
-    // Change 112 to your Page ID
-    $page_ids = array( 96, 6 );
-    if ( in_array( $post->ID, $page_ids ) ) {
-        return false;
-    } else {
-        return $use_block_editor;
-    }
-}
-add_filter( 'use_block_editor_for_post', 'fwd_post_filter', 10, 2 );
-
-// Create Block Editor Template for Contact Page
-function fwd_contact_block_editor_templates() {
-    // Replace '14' with the Page ID
-    if ( isset( $_GET['post'] ) && '6' == $_GET['post'] ) {
+	if ( isset( $_GET['post'] ) && '6' == $_GET['post'] ) {
         $post_type_object = get_post_type_object( 'page' );
         $post_type_object->template = array(
             // define blocks here...
 			array( 
 				'core/paragraph', 
-				array( 
-					'placeholder' => 'Contact Form'
-				) 
 			),
 			array( 
 				'core/shortcode', 
@@ -293,4 +277,27 @@ function fwd_contact_block_editor_templates() {
 		
     }
 }
-add_action( 'init', 'fwd_contact_block_editor_templates' );
+add_action( 'init', 'fwd_block_editor_templates' );
+
+// Remove Block Editor and Change to Classic Editor	
+function fwd_post_filter( $use_block_editor, $post ) {
+    // Change 112 to your Page ID
+    $page_ids = array( 96, 12 );
+    if ( in_array( $post->ID, $page_ids ) ) {
+        return false;
+    } else {
+        return $use_block_editor;
+    }
+}
+add_filter( 'use_block_editor_for_post', 'fwd_post_filter', 10, 2 );
+
+// Testing adding css to admin head
+add_action( 'admin_head', 'misha_custom_internal_css' );
+ 
+function misha_custom_internal_css(){
+	echo '<style>
+		#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+			background: #008000;
+		}
+	</style>';
+}
