@@ -21,9 +21,10 @@ get_header();
 
 		while ( have_posts() ) :
 			the_post();
-
-			get_template_part( 'template-parts/content', 'page' );
 			?>
+
+			<h1><?php the_title(); ?></h1>
+
 			<section class="home-intro">
 				<?php
 					if ( function_exists( 'get_field' ) ) {
@@ -33,7 +34,7 @@ get_header();
 				}
 				?>
 			</section>
-				<?php
+				<?php	
 				$args = array(
 					'post_type' => 'fwd-work',
 					'posts_per_page' => 4,
@@ -45,13 +46,13 @@ get_header();
 						)
 					)
 				);
-
+				
 				$query = new WP_Query( $args );
-
+				
 				if( $query -> have_posts() ) :
 					?>
+					<h2>Featured Works</h2>
 					<section class="home-work">
-						<h2>Featured Works</h2>
 					<?php
 					while ( $query -> have_posts() ) :
 						$query -> the_post();
@@ -67,9 +68,35 @@ get_header();
 					wp_reset_postdata();
 					?>
 					</section>
+
+				
 				<?php
 				endif;
 				?>
+			<h2>Featured Works (Relationship Field)</h2>
+			<section class="home-work">
+			<?php
+			// Add an ACF relationship field and assign it to the Home page
+			if (function_exists('get_field')) :
+				$featured_works = get_field('featured_works_relationship');
+				if ($featured_works) :	?>
+					<?php
+					foreach ($featured_works as $post) :
+						setup_postdata($post);
+					?>
+						<article class="front-portfolio">
+							<a href="<?php the_permalink(); ?>">
+								<?php the_post_thumbnail('300x200'); ?>
+								<h3><?php the_title(); ?></h3>
+							</a>
+						</article>
+			<?php
+					endforeach;
+					wp_reset_postdata();
+				endif;
+			endif;
+			?>
+			</section>
 			<section class="home-left">
 			<?php
 				if ( function_exists( 'get_field' ) ) {
@@ -109,10 +136,32 @@ get_header();
 			?>
 			</section>
 			<section class="home-slider">
+			<?php
+				$args = array(
+					'post_type'      => 'fwd-testimonial',
+					'posts_per_page' => -1
+				);
 
+				$query = new WP_Query( $args );
+
+				if ( $query->have_posts() ) : ?>
+					<div class="swiper">
+						<div class="swiper-wrapper">
+							<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+								<div class="swiper-slide">
+									<?php the_content(); ?>
+								</div>
+							<?php endwhile; ?>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+					<?php
+					wp_reset_postdata();
+				endif;
+			?>
 			</section>
+			<h2><?php esc_html_e('Latest Blog Posts')?></h2>
 			<section class="home-blog">
-				<h2><?php esc_html_e('Latest Blog Posts')?></h2>
 				<?php
 					$args = array(
 						'post_type' => 'post',
@@ -153,5 +202,5 @@ get_header();
 	</main><!-- #primary -->
 
 <?php
-get_sidebar();
+
 get_footer();

@@ -41,18 +41,24 @@ get_header();
 			);
 
 			$query = new WP_Query( $args );
+		?>
 
+		<nav class="service-nav-link">
+		<?php
 			if( $query -> have_posts() ) {
 				while ( $query -> have_posts() ) {
 					$query -> the_post();
 					?>
+
 					<?php $postID = get_the_ID(); ?>
+
 					<a href="#post-<?php echo $postID ?>"><?php the_title(); ?></a>
 					<?php
 				}
 				wp_reset_postdata();
 			}
 		?>
+		</nav>
 
 		<?php
 			$terms = get_terms( 
@@ -85,10 +91,11 @@ get_header();
 							$query->the_post();
 							?>
 							<article>
+								
 								<?php 
 								 if ( function_exists( 'get_field' ) ) {
 									if ( get_field( 'intro' ) ) {
-										echo '<h3 id="'. esc_attr( get_the_ID() ) .'">'. esc_html( get_the_title() ) .'</h3>';
+										echo '<h3 id="post-'. esc_attr( get_the_ID() ) .'">'. esc_html( get_the_title() ) .'</h3>';
 										the_field( 'intro' );
 									}
 								}

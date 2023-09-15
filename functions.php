@@ -99,10 +99,10 @@ function fwd_setup() {
 	add_theme_support(
 		'custom-logo',
 		array(
-			'height'      => 250,
-			'width'       => 250,
-			'flex-width'  => true,
-			'flex-height' => true,
+			'height'      => 50,
+			'width'       => 50,
+			'flex-width'  => false,
+			'flex-height' => false,
 			// 'unlink-homepage-logo' 	=> true,
 		)
 	);
@@ -168,10 +168,49 @@ add_action( 'widgets_init', 'fwd_widgets_init' );
  * Enqueue scripts and styles.
  */
 function fwd_scripts() {
+	wp_enqueue_style(
+		'fwd-googlefonts', //unique handle
+		'https://fonts.googleapis.com/css2?family=Goldman&family=Open+Sans:wght@400;700&display=swap', //url,
+		array(), //dependencies
+		null, //only use null for Google Fonts
+		'all'
+	);
+
 	wp_enqueue_style( 'fwd-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'fwd-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'fwd-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+
+	if (is_front_page()) {
+		wp_enqueue_style(
+			'swiper-styles',
+			get_template_directory_uri() .'/css/swiper-bundle.css',
+			array(),
+			'10.2.0'
+		);
+		wp_enqueue_script(
+			'swiper-scripts',
+			get_template_directory_uri() .'/js/swiper-bundle.min.js',
+			array(),
+			'10.2.0',
+			array( 'strategy' => 'defer')
+		);
+		wp_enqueue_script(
+			'swiper-settings',
+			get_template_directory_uri() .'/js/swiper-settings.js',
+			array('swiper-scripts'),
+			_S_VERSION,
+			array( 'strategy' => 'defer')
+		);
+	}
+	// back to top js
+	wp_enqueue_script(
+		'top-button-script',
+		get_template_directory_uri() .'/js/top-button.js',
+		array(),
+		array( 'strategy' => 'defer')
+	);
+
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

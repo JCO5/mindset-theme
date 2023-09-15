@@ -11,6 +11,11 @@
 
 ?>
 
+	<button id="scroll-top" class="scroll-top">
+	<?php get_template_part('images/top', 'button'); ?>
+		<span class="screen-reader-text">Scroll To Top</span>
+	</button>
+
 	<footer id="colophon" class="site-footer">
 		<div class="footer-contact">
 			<?php
@@ -18,6 +23,7 @@
 					if ( ! is_page('contact') ) {
 						if ( get_field('address', 6) ) {
 							echo '<div class="footer-contact-left">';
+								get_template_part('images/map');
 								the_field('address', 6);
 							echo '</div>';
 						}

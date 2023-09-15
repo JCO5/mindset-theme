@@ -14,7 +14,7 @@ get_header();
 
 			<header class="page-header">
 				<?php
-				the_archive_title( '<h1 class="page-title">', '</h1>' );
+				post_type_archive_title('<h1 class="page-title">', '</h1>'); 
 				the_archive_description( '<div class="archive-description">', '</div>' );
 				?>
 			</header><!-- .page-header -->
@@ -36,7 +36,7 @@ get_header();
 			$query = new WP_Query( $args );
 
 			if( $query -> have_posts() ) {
-				echo '<section> <h2>'. esc_html__('Web').'</h2>';
+				echo '<h2>'. esc_html__('Web').'</h2> <section class="work-web">';
 				while ( $query -> have_posts() ) {
 					$query -> the_post();
 					?>
@@ -71,7 +71,7 @@ get_header();
 			$query = new WP_Query( $args );
 
 			if( $query -> have_posts() ) {
-				echo '<section> <h2>'. esc_html__('Photo').'</h2>';
+				echo ' <h2>'. esc_html__('Photo').'</h2> <section class="work-photo">';
 				while ( $query -> have_posts() ) {
 					$query -> the_post();
 					?>

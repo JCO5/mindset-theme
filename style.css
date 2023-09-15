@@ -406,7 +406,7 @@ select,
 optgroup,
 textarea {
 	color: #404040;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 1rem;
 	line-height: 1.5;
 }
@@ -417,6 +417,7 @@ h3,
 h4,
 h5,
 h6 {
+	font-family: 'Goldman', cursive;
 	clear: both;
 	margin: .75em 0 .25em;
 }
@@ -721,7 +722,11 @@ svg path {
 	}
 
 	.no-sidebar .site,
-	.page-template-full-width .site {
+	.page-template-full-width .site,
+	.post-type-archive-fwd-work .site,
+	.page-id-8 .site,
+	.page-id-12 .site,
+	.single-fwd-work .site	{
 		grid-template-columns: 1fr minmax(0, 1000px) 1fr;
 		grid-template-areas:
 			"header header header"
@@ -979,8 +984,68 @@ svg path {
 	grid-gap: 2em;
 }
 
+/* About Page */
+.page-id-8 blockquote {
+	border-left: none;
+	padding-left: 0;
+}
+
+/* Service Page */
+.page-id-14 .service-nav-link {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: solid black .15rem;
+    background-color: azure;
+    padding: 1rem;
+}
+
+/* Home Page*/
+.home-work article {
+	text-align: center;
+}
+.home-work .front-portfolio {
+	text-align: center;
+}
+@media screen and (min-width: 50em) {
+	.home-work,
+	.home-blog {
+		display: flex;
+		flex: wrap;
+		gap: 1rem;
+	}
+	.home-left,
+	.home-right {
+		display: inline-block;
+		width: 45%;
+		vertical-align: top;
+	}
+}
+
+/* Works Page */
+@media screen and (min-width: 50em) {
+	.work-web,
+	.work-photo {
+		display: flex;
+		flex: wrap;
+		gap: 1rem;
+	}
+}
+
 /* Footer
 --------------------------------------------- */
+/* for back to top styles */
+.scroll-top {
+	background: transparent;
+	border: none;
+	padding: 1rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	cursor: pointer;
+	transition: all ease 0.3s;
+	opacity: 0;
+	color: #fff200;
+}
 .site-footer {
 	background-color: #111;
 	color: #fff;
